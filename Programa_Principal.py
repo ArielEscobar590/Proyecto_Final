@@ -1,6 +1,7 @@
 import tkinter as tk
 import Personal as p
-import Reportes as r
+import Inicio_Sesion as i
+
 
 ventana = tk.Tk()
 ventana.title("Reportes")
@@ -17,4 +18,5 @@ etiquetacontra.pack(pady=5)
 contra = tk.Entry(ventana)
 contra.pack(pady=5)
 
+i.Inicio()
 ventana.mainloop()
