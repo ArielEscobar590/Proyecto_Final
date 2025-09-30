@@ -1,3 +1,7 @@
+class Inicio:
+    def __init__(self, ventana):
+        self.ventana = ventana
+
 def Cargar_Usuarios():
     pass
 
