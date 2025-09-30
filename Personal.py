@@ -3,10 +3,13 @@ import Reportes as r
 import Horas_Extra as h
 
 class Personal:
-    def __init__(self, usuario, contrasena, rol):
+    def __init__(self, usuario, contrasena, rol, vacaciones, reportes,horas_extra):
         self.usuario = usuario
         self.contrasena = contrasena
         self.rol = rol
+        self.vacaciones = vacaciones
+        self.reportes = reportes
+        self.horas_extra = horas_extra
 
     def Mostrar_Personal(self):
         pass
