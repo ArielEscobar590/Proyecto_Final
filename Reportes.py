@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 from datetime import datetime, timedelta
-
+fallas=["fusible quemado","cablre dañado","conector con zarro","movimiento de poste","nodo inhibido","problema de energia comercial"]
 DB_NAME = "reporte.db"
 class Reporte_falla:
     def __init__(self, fecha, orden, hora_inicio, hora_fin, solucion, tecnico):
@@ -83,7 +83,7 @@ class App:
 
         # --- Campo de solución ---
         tk.Label(frame, text="Solución:").grid(row=4, column=0, sticky="e", padx=5, pady=5)
-        self.solucion_entry = tk.Entry(frame, width=40)
+        self.solucion_entry = ttk.Combobox(frame,values=fallas, state="readonly", width=37)
         self.solucion_entry.grid(row=4, column=1, padx=5, pady=5)
 
         # --- Campo de técnico ---
@@ -134,6 +134,8 @@ class App:
             self.tabla.insert("", tk.END, values=(
                 fila["fecha"], fila["orden"], fila["inicio"], fila["fin"], fila["solucion"], fila["tecnico"]
             ))
+
+
 
 
 if __name__ == "__main__":
