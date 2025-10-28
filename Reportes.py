@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox
 import sqlite3
 from datetime import datetime, timedelta
 
-fallas = ["fusible quemado", "cable dañado", "conector con zarro", "movimiento de poste", "nodo inhibido", "problema de energía comercial"]
+fallas = ["Fusible quemado", "Cable dañado", "Conector con zarro", "Movimiento de poste", "Nodo inhibido", "Problema de energía comercial"]
 DB_NAME = "reporte.db"
 
 
@@ -71,17 +71,40 @@ class App:
         self.orden_entry = tk.Entry(frame, width=40)
         self.orden_entry.grid(row=1, column=1, padx=5, pady=5)
 
+        ttk.Label(frame, text="Hora Inicio:").grid(row=2, column=0, sticky="e", padx=5, pady=5)
+        ophora = [f"{i:02}" for i in range(0, 24)]
+        opmin = [f"{i:02}" for i in range(0, 60, 5)]
 
-        tk.Label(frame, text="Hora Inicio:").grid(row=2, column=0, sticky="e", padx=5, pady=5)
-        horas = [f"{h:02d}:00" for h in range(7, 20)]  # 7:00 a 19:00
-        self.hora_inicio_cb = ttk.Combobox(frame, values=horas, state="readonly", width=37)
-        self.hora_inicio_cb.set("08:00")
-        self.hora_inicio_cb.grid(row=2, column=1, padx=5, pady=5)
+        frame_hora_inicio = tk.Frame(frame, bg="#EAF4F4")
+        frame_hora_inicio.grid(row=2, column=1, columnspan=2, sticky="w")
 
-        tk.Label(frame, text="Hora Fin:").grid(row=3, column=0, sticky="e", padx=5, pady=5)
-        self.hora_fin_cb = ttk.Combobox(frame, values=horas, state="readonly", width=37)
-        self.hora_fin_cb.set("17:00")
-        self.hora_fin_cb.grid(row=3, column=1, padx=5, pady=5)
+        self.hora_inicio_cb = ttk.Combobox(frame_hora_inicio, values=ophora, state="readonly", width=5)
+        self.hora_inicio_cb.set("00")
+        self.hora_inicio_cb.grid(row=0, column=0, padx=2)
+
+        # Usamos tk.Label para poder aplicar bg
+        tk.Label(frame_hora_inicio, text="H", bg="#EAF4F4").grid(row=0, column=1)
+
+        self.min_inicio_cb = ttk.Combobox(frame_hora_inicio, values=opmin, state="readonly", width=5)
+        self.min_inicio_cb.set("00")
+        self.min_inicio_cb.grid(row=0, column=2, padx=2)
+
+        tk.Label(frame_hora_inicio, text="MIN", bg="#EAF4F4").grid(row=0, column=3)
+
+        # --- Hora Fin ---
+        ttk.Label(frame, text="Hora Fin:").grid(row=3, column=0, sticky="e", padx=5, pady=5)
+        frame_hora_fin = tk.Frame(frame, bg="#EAF4F4")
+        frame_hora_fin.grid(row=3, column=1, columnspan=2, sticky="w")
+
+        self.hora_fin_cb = ttk.Combobox(frame_hora_fin, values=ophora, state="readonly", width=5)
+        self.hora_fin_cb.set("17")
+        self.hora_fin_cb.grid(row=0, column=0, padx=2)
+        tk.Label(frame_hora_fin, text="H", bg="#EAF4F4").grid(row=0, column=1)
+
+        self.min_fin_cb = ttk.Combobox(frame_hora_fin, values=opmin, state="readonly", width=5)
+        self.min_fin_cb.set("00")
+        self.min_fin_cb.grid(row=0, column=2, padx=2)
+        tk.Label(frame_hora_fin, text="MIN", bg="#EAF4F4").grid(row=0, column=3)
 
         tk.Label(frame, text="Solución:").grid(row=4, column=0, sticky="e", padx=5, pady=5)
         self.solucion_entry = ttk.Combobox(frame, values=fallas, state="readonly", width=37)
