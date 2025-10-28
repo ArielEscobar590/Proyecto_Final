@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab24a24-b986-49ae-9b55-b6f2164a5495" name="Changes" comment="Segundo Commit2">
+    <list default="true" id="cab24a24-b986-49ae-9b55-b6f2164a5495" name="Changes" comment="Segundo Commit3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vacaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/Vacaciones.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +143,8 @@
       <workItem from="1760755864764" duration="2208000" />
       <workItem from="1761193632486" duration="1662000" />
       <workItem from="1761280738878" duration="1989000" />
-      <workItem from="1761539155570" duration="3089000" />
+      <workItem from="1761539155570" duration="3381000" />
+      <workItem from="1761611494105" duration="727000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Commit">
       <option name="closed" value="true" />
@@ -186,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761195061101</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Segundo Commit3">
+      <option name="closed" value="true" />
+      <created>1761542539034</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1761542539034</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,10 +215,11 @@
     <MESSAGE value="Primer Commit" />
     <MESSAGE value="Segundo Commit" />
     <MESSAGE value="Segundo Commit2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Segundo Commit2" />
+    <MESSAGE value="Segundo Commit3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Segundo Commit3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Inicio_Sesion_py$Reportes.coverage" NAME="Reportes Coverage Results" MODIFIED="1761539245026" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Inicio_Sesion_py$Reportes.coverage" NAME="Reportes Coverage Results" MODIFIED="1761614918038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Proyecto_Final_1$Programa_Principal.coverage" NAME="Programa_Principal Coverage Results" MODIFIED="1760242445856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProyectoFinal$Programa_Principal.coverage" NAME="Programa_Principal Coverage Results" MODIFIED="1759178716353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Proyecto_Final2$Programa_Principal.coverage" NAME="Programa_Principal Coverage Results" MODIFIED="1760576859989" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
