@@ -110,8 +110,8 @@ class App:
         self.solucion_entry = ttk.Combobox(frame, values=fallas, state="readonly", width=37)
         self.solucion_entry.grid(row=4, column=1, padx=5, pady=5)
 
-        tk.Label(frame, text="Técnico:").grid(row=5, column=0, sticky="e", padx=5, pady=5)
-        tecnicos = ["Carlos Pérez", "Ana Gómez", "Luis Hernández", "Marta López", "Otro"]
+        tk.Label(frame, text="Técnico que Acompaña:").grid(row=5, column=0, sticky="e", padx=5, pady=5)
+        tecnicos = ["Carlos Pérez", "Ana Gómez", "Luis Hernández", "Marta López", "Lo hize Solo"]
         self.tecnico_cb = ttk.Combobox(frame, values=tecnicos, state="readonly", width=37)
         self.tecnico_cb.set(tecnicos[0])
         self.tecnico_cb.grid(row=5, column=1, padx=5, pady=5)
