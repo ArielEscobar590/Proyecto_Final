@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab24a24-b986-49ae-9b55-b6f2164a5495" name="Changes" comment="Tercer Commit">
+    <list default="true" id="cab24a24-b986-49ae-9b55-b6f2164a5495" name="Changes" comment="Cuarto Commit German">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inicio_Sesion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Inicio_Sesion.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +147,7 @@
       <workItem from="1761280738878" duration="1989000" />
       <workItem from="1761539155570" duration="3381000" />
       <workItem from="1761611494105" duration="727000" />
-      <workItem from="1761615103021" duration="3285000" />
+      <workItem from="1761615103021" duration="4545000" />
     </task>
     <task id="LOCAL-00001" summary="Primer Commit">
       <option name="closed" value="true" />
@@ -214,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761615804675</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Cuarto Commit German">
+      <option name="closed" value="true" />
+      <created>1762102456176</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1762102456176</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +244,8 @@
     <MESSAGE value="Segundo Commit2" />
     <MESSAGE value="Segundo Commit3" />
     <MESSAGE value="Tercer Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tercer Commit" />
+    <MESSAGE value="Cuarto Commit German" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cuarto Commit German" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Proyecto_Finalv_2$Reportes.coverage" NAME="Reportes Coverage Results" MODIFIED="1762101758794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
