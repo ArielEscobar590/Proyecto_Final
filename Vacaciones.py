@@ -27,7 +27,7 @@ def Conectar():
     return conexion, cursor
 
 
-# --- Funciones principales ---
+
 def guardar():
     inicio = entry_fecha_inicio.get()
     final = entry_fecha_final.get()
