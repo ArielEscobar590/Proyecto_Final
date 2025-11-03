@@ -277,8 +277,12 @@ entry_direccion = tk.Entry(ventana)
 entry_direccion.grid(row=3, column=1, padx=5, pady=5)
 
 tk.Label(ventana, text="Edad:").grid(row=4, column=0, padx=5, pady=5, sticky="w")
-entry_edad = tk.Entry(ventana)
+
+
+edades = [str(i) for i in range(18, 61)]
+entry_edad = ttk.Combobox(ventana, values=edades, state="readonly", width=17)
 entry_edad.grid(row=4, column=1, padx=5, pady=5)
+entry_edad.set("18")
 
 tk.Label(ventana, text="Teléfono:").grid(row=5, column=0, padx=5, pady=5, sticky="w")
 validacion_tel = ventana.register(validar_telefono)
@@ -290,8 +294,11 @@ entry_correo = tk.Entry(ventana)
 entry_correo.grid(row=6, column=1, padx=5, pady=5)
 
 tk.Label(ventana, text="Rol:").grid(row=7, column=0, padx=5, pady=5, sticky="w")
-entry_rol = tk.Entry(ventana)
+
+roles = ["Coordinador", "Supervisor", "Técnico"]
+entry_rol = ttk.Combobox(ventana, values=roles, state="readonly", width=17)
 entry_rol.grid(row=7, column=1, padx=5, pady=5)
+entry_rol.set("Técnico")
 
 tk.Label(ventana, text="Contraseña:").grid(row=8, column=0, padx=5, pady=5, sticky="w")
 entry_contrasena = tk.Entry(ventana, show="*")
