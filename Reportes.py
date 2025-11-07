@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 from datetime import datetime, timedelta
-
+import Personal   # Ya lo tienes importado
 fallas = ["Fusible quemado", "Cable dañado", "Conector con zarro", "Movimiento de poste", "Nodo inhibido", "Problema de energía comercial"]
 DB_NAME = "reporte.db"
 
@@ -59,7 +59,7 @@ class App:
         frame = tk.LabelFrame(root, text="Nuevo Reporte", padx=10, pady=10)
         frame.pack(fill="x", padx=10, pady=10)
 
-
+        # --- Fecha ---
         tk.Label(frame, text="Fecha:").grid(row=0, column=0, sticky="e", padx=5, pady=5)
         fechas = [(datetime.now() + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(5)]
         self.fecha_cb = ttk.Combobox(frame, values=fechas, state="readonly", width=37)
@@ -71,6 +71,7 @@ class App:
         self.orden_entry = tk.Entry(frame, width=40)
         self.orden_entry.grid(row=1, column=1, padx=5, pady=5)
 
+        # --- Hora inicio ---
         ttk.Label(frame, text="Hora Inicio:").grid(row=2, column=0, sticky="e", padx=5, pady=5)
         ophora = [f"{i:02}" for i in range(0, 24)]
         opmin = [f"{i:02}" for i in range(0, 60, 5)]
@@ -82,16 +83,14 @@ class App:
         self.hora_inicio_cb.set("00")
         self.hora_inicio_cb.grid(row=0, column=0, padx=2)
 
-        # Usamos tk.Label para poder aplicar bg
         tk.Label(frame_hora_inicio, text="H", bg="#EAF4F4").grid(row=0, column=1)
 
         self.min_inicio_cb = ttk.Combobox(frame_hora_inicio, values=opmin, state="readonly", width=5)
         self.min_inicio_cb.set("00")
         self.min_inicio_cb.grid(row=0, column=2, padx=2)
-
         tk.Label(frame_hora_inicio, text="MIN", bg="#EAF4F4").grid(row=0, column=3)
 
-        # --- Hora Fin ---
+        # --- Hora fin ---
         ttk.Label(frame, text="Hora Fin:").grid(row=3, column=0, sticky="e", padx=5, pady=5)
         frame_hora_fin = tk.Frame(frame, bg="#EAF4F4")
         frame_hora_fin.grid(row=3, column=1, columnspan=2, sticky="w")
@@ -106,16 +105,21 @@ class App:
         self.min_fin_cb.grid(row=0, column=2, padx=2)
         tk.Label(frame_hora_fin, text="MIN", bg="#EAF4F4").grid(row=0, column=3)
 
+        # --- Solución ---
         tk.Label(frame, text="Solución:").grid(row=4, column=0, sticky="e", padx=5, pady=5)
         self.solucion_entry = ttk.Combobox(frame, values=fallas, state="readonly", width=37)
         self.solucion_entry.grid(row=4, column=1, padx=5, pady=5)
 
+        # --- Técnico que Acompaña (desde BD) ---
         tk.Label(frame, text="Técnico que Acompaña:").grid(row=5, column=0, sticky="e", padx=5, pady=5)
-        tecnicos = ["Carlos Pérez", "Ana Gómez", "Luis Hernández", "Marta López", "Lo hize Solo"]
+        tecnicos = self.obtener_tecnicos_desde_bd()
+        if not tecnicos:
+            tecnicos = ["No hay técnicos disponibles"]
         self.tecnico_cb = ttk.Combobox(frame, values=tecnicos, state="readonly", width=37)
         self.tecnico_cb.set(tecnicos[0])
         self.tecnico_cb.grid(row=5, column=1, padx=5, pady=5)
 
+        # --- Botones ---
         tk.Button(
             frame,
             text="Guardar Reporte",
@@ -124,7 +128,6 @@ class App:
             fg="white",
             font=("Arial", 10, "bold")
         ).grid(row=6, column=0, columnspan=2, pady=10)
-
 
         tk.Button(
             frame,
@@ -135,7 +138,6 @@ class App:
             font=("Arial", 10, "bold")
         ).grid(row=7, column=0, columnspan=2, pady=5)
 
-
         tk.Button(
             frame,
             text="Salir",
@@ -145,8 +147,20 @@ class App:
             font=("Arial", 10, "bold")
         ).grid(row=8, column=0, columnspan=2, pady=5)
 
-
         self.tabla = None
+
+    # 🔹 Nueva función: obtener técnicos desde tu base Personal.db
+    def obtener_tecnicos_desde_bd(self):
+        try:
+            conn = sqlite3.connect("Personal.db")
+            cur = conn.cursor()
+            cur.execute("SELECT nombre || ' ' || apellido FROM personal WHERE rol = 'Técnico'")
+            datos = cur.fetchall()
+            conn.close()
+            return [d[0] for d in datos]
+        except Exception as e:
+            messagebox.showerror("Error BD", f"No se pudieron cargar los Técnicos:\n{e}")
+            return []
 
     def guardar_reporte(self):
         data = {
@@ -164,17 +178,13 @@ class App:
 
         rep = Reporte_falla(**data)
         rep.guardar()
-
         self.orden_entry.delete(0, tk.END)
         self.solucion_entry.set('')
 
     def mostrar_reportes(self):
-        """Muestra la tabla solo cuando el usuario hace clic en 'Mostrar Reportes'."""
         if self.tabla:
-            # Si ya existe, actualizarla
             self.actualizar_tabla()
             return
-
 
         self.tabla = ttk.Treeview(
             self.root,
@@ -185,15 +195,11 @@ class App:
             self.tabla.heading(col, text=col.capitalize())
             self.tabla.column(col, width=120)
         self.tabla.pack(fill="both", expand=True, padx=10, pady=10)
-
         self.actualizar_tabla()
 
     def actualizar_tabla(self):
-
         for row in self.tabla.get_children():
             self.tabla.delete(row)
-
-
         for fila in Reporte_falla.listar():
             self.tabla.insert("", tk.END, values=(
                 fila["fecha"], fila["orden"], fila["inicio"], fila["fin"], fila["solucion"], fila["tecnico"]
