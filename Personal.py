@@ -115,7 +115,7 @@ def seleccionar_registro(event):
 
 
 def modificar_personal():
-    # Ventana emergente para buscar registro por ID y nombre
+
     ventana_buscar = tk.Toplevel(ventana)
     ventana_buscar.title("Modificar Personal")
     ventana_buscar.geometry("300x200")
@@ -152,7 +152,7 @@ def modificar_personal():
         ventana_editar.geometry("400x400")
         ventana_editar.resizable(False, False)
 
-        # Campos con valores actuales
+
         labels = ["Nombre", "Apellido", "Dirección", "Edad", "Teléfono", "Correo", "Rol", "Contraseña"]
         entries = []
 
