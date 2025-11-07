@@ -1,8 +1,7 @@
-
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox, ttk
-
+import Personal
 
 
 class Horas_extras:
@@ -33,6 +32,19 @@ def conectar():
     return conexion, cursor
 
 
+def obtener_tecnicos_desde_bd():
+
+    try:
+        conn = sqlite3.connect("Personal.db")
+        cur = conn.cursor()
+        cur.execute("SELECT nombre || ' ' || apellido FROM personal WHERE rol = 'Técnico'")
+        datos = cur.fetchall()
+        conn.close()
+        return [d[0] for d in datos] if datos else ["No hay Técnicos disponibles"]
+    except Exception as e:
+        messagebox.showerror("Error BD", f"No se pudieron cargar los Técnicos:\n{e}")
+        return ["Error al cargar Técnicos"]
+
 
 def guardar_datos():
     try:
@@ -41,7 +53,7 @@ def guardar_datos():
         hora_inicio = entry_inicio.get()
         hora_fin = entry_fin.get()
         solucion = entry_solucion.get("1.0", tk.END).strip()
-        tecnico = entry_tecnico.get()
+        tecnico = combo_tecnico.get()
 
         if not (idnodo and hora_inicio and hora_fin and tecnico):
             messagebox.showwarning("Campos vacíos", "Por favor complete todos los campos obligatorios.")
@@ -122,9 +134,13 @@ def limpiar_campos():
     entry_inicio.delete(0, tk.END)
     entry_fin.delete(0, tk.END)
     entry_solucion.delete("1.0", tk.END)
-    entry_tecnico.delete(0, tk.END)
+    combo_tecnico.set('')
+
+
 def salir():
-    pass
+    ventana.destroy()
+
+
 ventana = tk.Tk()
 ventana.title("GESTIÓN DE HORAS EXTRA")
 ventana.geometry("950x600")
@@ -152,13 +168,15 @@ tk.Label(frame_form, text="Hora Fin:", bg="#E0FFFF").grid(row=1, column=2, padx=
 entry_fin = tk.Entry(frame_form)
 entry_fin.grid(row=1, column=3)
 
-tk.Label(frame_form, text="Técnico:", bg="#E0FFFF").grid(row=0, column=4, padx=5, pady=5)
-entry_tecnico = tk.Entry(frame_form)
-entry_tecnico.grid(row=0, column=5)
+tk.Label(frame_form, text="Técnico que Acompaña:", bg="#E0FFFF").grid(row=3, column=0, padx=5, pady=5)
+tecnicos = obtener_tecnicos_desde_bd()
+combo_tecnico = ttk.Combobox(frame_form, values=tecnicos, state="readonly", width=37)
+combo_tecnico.set(tecnicos[0])
+combo_tecnico.grid(row=3, column=1, columnspan=2, padx=5, pady=5)
 
-tk.Label(frame_form, text="Solución:", bg="#E0FFFF").grid(row=2, column=0, padx=5, pady=5)
+tk.Label(frame_form, text="Solución:", bg="#E0FFFF").grid(row=4, column=0, padx=5, pady=5)
 entry_solucion = tk.Text(frame_form, width=70, height=3)
-entry_solucion.grid(row=2, column=1, columnspan=5, pady=5)
+entry_solucion.grid(row=4, column=1, columnspan=5, pady=5)
 
 frame_botones = tk.Frame(ventana, bg="#E0FFFF")
 frame_botones.pack(pady=10)
@@ -168,16 +186,11 @@ tk.Button(frame_botones, text="Mostrar", command=mostrar_datos, bg="#D3D3D3", wi
 tk.Button(frame_botones, text="Modificar", command=modificar_dato, bg="#D3D3D3", width=12).grid(row=0, column=2, padx=10)
 tk.Button(frame_botones, text="Eliminar", command=eliminar_dato, bg="#D3D3D3", width=12).grid(row=0, column=3, padx=10)
 tk.Button(frame_botones, text="Limpiar", command=limpiar_campos, bg="#D3D3D3", width=12).grid(row=0, column=4, padx=10)
-tk.Button(frame_botones, text="salir",bg="#D3D3D3",width=12).grid(row=0, column=5, padx=10)
+tk.Button(frame_botones, text="Salir", command=salir, bg="#D3D3D3", width=12).grid(row=0, column=5, padx=10)
 
 tabla = ttk.Treeview(ventana, columns=("id", "reporte", "idnodo", "inicio", "fin", "solucion", "tecnico"), show="headings")
-tabla.heading("id", text="ID")
-tabla.heading("reporte", text="Orden")
-tabla.heading("idnodo", text="ID Nodo")
-tabla.heading("inicio", text="Inicio")
-tabla.heading("fin", text="Fin")
-tabla.heading("solucion", text="Solución")
-tabla.heading("tecnico", text="Técnico")
+for col, nombre in zip(tabla["columns"], ["ID", "Orden", "ID Nodo", "Inicio", "Fin", "Solución", "Técnico"]):
+    tabla.heading(col, text=nombre)
 tabla.pack(fill="both", expand=True, pady=10)
 
 mostrar_datos()
