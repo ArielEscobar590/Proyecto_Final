@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 from datetime import datetime, timedelta
-import Personal   # Ya lo tienes importado
+import Personal
 fallas = ["Fusible quemado", "Cable dañado", "Conector con zarro", "Movimiento de poste", "Nodo inhibido", "Problema de energía comercial"]
 DB_NAME = "reporte.db"
 
