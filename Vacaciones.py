@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 
-# --- Clase Vacaciones ---
+
 class Vacaciones:
     def __init__(self, id_personal, nombre, dias_go):
         self.id_personal = id_personal
@@ -54,9 +54,7 @@ def cargar_personal():
 
 
 def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
-    """Función para mostrar el módulo de vacaciones integrado"""
 
-    # VERIFICACIÓN DE PERMISOS - Solo Supervisores y Coordinadores pueden acceder
     if usuario_actual['rol'] not in ['Supervisor', 'Coordinador']:
         messagebox.showerror("Acceso Denegado",
                              "No tiene permisos para acceder al módulo de Vacaciones.\n"
@@ -64,45 +62,43 @@ def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
         volver_menu()
         return
 
-    # Limpiar frame padre
+
     for widget in frame_padre.winfo_children():
         widget.destroy()
 
-    # Título
+
     tk.Label(frame_padre, text="Gestión de Vacaciones",
              font=("Arial", 16, "bold"), bg="#E0FFFF").pack(pady=10)
 
-    # Frame principal
+
     frame_principal = tk.Frame(frame_padre, bg="#E0FFFF")
     frame_principal.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
 
-    # Campos de entrada
+
     campos_frame = tk.Frame(frame_principal, bg="#E0FFFF")
     campos_frame.pack(pady=10)
 
-    # Cargar datos del personal al inicio
+
     datos_personal = cargar_personal()
 
-    # ID Personal
     tk.Label(campos_frame, text="ID Personal:", bg="#E0FFFF").grid(row=0, column=0, padx=10, pady=5, sticky="w")
     combo_personal_id = ttk.Combobox(campos_frame, width=20, state="readonly")
     combo_personal_id.grid(row=0, column=1, padx=10, pady=5)
     if datos_personal:
         combo_personal_id['values'] = [d[0] for d in datos_personal]
 
-    # Nombre
     tk.Label(campos_frame, text="Nombre:", bg="#E0FFFF").grid(row=1, column=0, padx=10, pady=5, sticky="w")
     combo_personal_nombre = ttk.Combobox(campos_frame, width=20, state="readonly")
     combo_personal_nombre.grid(row=1, column=1, padx=10, pady=5)
     if datos_personal:
         combo_personal_nombre['values'] = [d[1] for d in datos_personal]
 
-    # Días a Gozar
+
     tk.Label(campos_frame, text="Días a Gozar:", bg="#E0FFFF").grid(row=2, column=0, padx=10, pady=5, sticky="w")
     entry_dias_go = tk.Entry(campos_frame, width=23)
     entry_dias_go.grid(row=2, column=1, padx=10, pady=5)
 
-    # --- Funciones internas ---
+
     def actualizar_nombre(event):
         id_sel = combo_personal_id.get()
         for p in datos_personal:
@@ -151,7 +147,7 @@ def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
 
             nuevos_dias = dias_actuales - dias_go
 
-            # Guardar en Vacaciones.db
+
             conexion, cursor = Conectar()
             cursor.execute('''
                            INSERT INTO Vacaciones (id_personal, nombre, dias_go)
@@ -160,7 +156,7 @@ def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
             conexion.commit()
             conexion.close()
 
-            # Actualizar días en personal.db
+
             cur_p.execute("UPDATE personal SET vacaciones=? WHERE id_Personal=?", (nuevos_dias, id_personal))
             conn_p.commit()
             conn_p.close()
@@ -200,7 +196,6 @@ def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
             return
 
         try:
-            # Restaurar días en personal.db
             id_personal = item['values'][1]
             conn_p = sqlite3.connect('personal.db')
             cur_p = conn_p.cursor()
@@ -212,7 +207,7 @@ def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
             conn_p.commit()
             conn_p.close()
 
-            # Eliminar de Vacaciones.db
+
             conexion, cursor = Conectar()
             cursor.execute("DELETE FROM Vacaciones WHERE Id=?", (id_registro,))
             conexion.commit()
@@ -240,10 +235,9 @@ def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
         else:
             messagebox.showwarning("Advertencia", "No se pudieron cargar los datos del personal.")
 
-    # Vincular evento de selección
     combo_personal_id.bind("<<ComboboxSelected>>", actualizar_nombre)
 
-    # --- Botones ---
+
     botones_frame = tk.Frame(frame_principal, bg="#E0FFFF")
     botones_frame.pack(pady=10)
 
@@ -258,7 +252,7 @@ def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
     tk.Button(botones_frame, text="Volver al Menú", command=volver_menu,
               bg="#FFB6C1", width=15).grid(row=0, column=4, padx=5)
 
-    # --- Tabla de registros ---
+
     tabla_frame = tk.Frame(frame_principal, bg="#E0FFFF")
     tabla_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
@@ -269,11 +263,11 @@ def mostrar_vacaciones(frame_padre, volver_menu, usuario_actual):
         tabla.heading(col, text=col)
         tabla.column(col, width=150)
 
-    # Scrollbar para la tabla
+
     scrollbar = tk.Scrollbar(tabla_frame, orient=tk.VERTICAL, command=tabla.yview)
     tabla.configure(yscrollcommand=scrollbar.set)
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
     tabla.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-    # Cargar datos iniciales
+
     mostrar_datos()

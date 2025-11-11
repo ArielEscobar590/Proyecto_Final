@@ -83,23 +83,23 @@ class GestionPersonal:
             return 0
 
     def mostrar_interfaz(self):
-        # Limpiar frame padre
+
         for widget in self.frame_padre.winfo_children():
             widget.destroy()
 
-        # Título
+
         tk.Label(self.frame_padre, text="Gestión de Personal",
                  font=("Arial", 16, "bold"), bg="#E0FFFF").pack(pady=10)
 
-        # Frame principal
+
         frame_principal = tk.Frame(self.frame_padre, bg="#E0FFFF")
         frame_principal.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
 
-        # Campos de entrada
+
         campos_frame = tk.Frame(frame_principal, bg="#E0FFFF")
         campos_frame.pack(pady=10)
 
-        # ID Personal
+
         tk.Label(campos_frame, text="ID Personal:", bg="#E0FFFF").grid(row=0, column=0, padx=5, pady=5, sticky="w")
         self.entry_id = tk.Entry(campos_frame, state="readonly")
         self.entry_id.grid(row=0, column=1, padx=5, pady=5)
@@ -139,7 +139,7 @@ class GestionPersonal:
         self.entry_rol = ttk.Combobox(campos_frame, values=roles, state="readonly")
         self.entry_rol.grid(row=8, column=1, padx=5, pady=5)
 
-        # Contraseña con botón para mostrar/ocultar
+
         tk.Label(campos_frame, text="Contraseña:", bg="#E0FFFF").grid(row=9, column=0, padx=5, pady=5, sticky="w")
 
         # Frame para contraseña y checkbox
@@ -149,7 +149,7 @@ class GestionPersonal:
         self.entry_contrasena = tk.Entry(frame_contrasena, show="*", width=20)
         self.entry_contrasena.pack(side=tk.LEFT)
 
-        # Variable y checkbox para mostrar contraseña
+
         self.var_mostrar_contrasena = tk.BooleanVar()
         chk_mostrar = tk.Checkbutton(
             frame_contrasena, text="Mostrar", variable=self.var_mostrar_contrasena,
@@ -157,7 +157,7 @@ class GestionPersonal:
         )
         chk_mostrar.pack(side=tk.LEFT, padx=(5, 0))
 
-        # Botones
+
         botones_frame = tk.Frame(frame_principal, bg="#E0FFFF")
         botones_frame.pack(pady=10)
 
@@ -195,7 +195,7 @@ class GestionPersonal:
         self.mostrar_datos()
 
     def mostrar_contrasena(self):
-        """Muestra u oculta la contraseña"""
+
         if self.var_mostrar_contrasena.get():
             self.entry_contrasena.config(show="")
         else:
@@ -228,7 +228,7 @@ class GestionPersonal:
             return
 
         try:
-            # Generar ID automático
+
             conexion, cursor = self.conectar()
             cursor.execute("SELECT MAX(CAST(id_Personal AS INTEGER)) FROM personal")
             resultado = cursor.fetchone()
@@ -343,7 +343,7 @@ class GestionPersonal:
             self.entry_contrasena.delete(0, tk.END)
             self.entry_contrasena.insert(0, valores[10])
 
-            # Asegurarse de que la contraseña esté oculta al cargar
+
             self.var_mostrar_contrasena.set(False)
             self.entry_contrasena.config(show="*")
 
@@ -452,7 +452,6 @@ class GestionPersonal:
         self.entry_fecha_ingreso.delete(0, tk.END)
         self.entry_rol.set("")
         self.entry_contrasena.delete(0, tk.END)
-        # Resetear el checkbox de mostrar contraseña
         self.var_mostrar_contrasena.set(False)
         self.entry_contrasena.config(show="*")
 

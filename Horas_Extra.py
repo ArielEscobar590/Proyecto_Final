@@ -63,7 +63,7 @@ class HorasExtras:
 
 
 def obtener_tecnicos_desde_bd():
-    """Obtiene la lista de técnicos desde la base de datos Personal.db"""
+
     try:
         conn = sqlite3.connect("personal.db")
         cur = conn.cursor()
@@ -77,7 +77,7 @@ def obtener_tecnicos_desde_bd():
 
 
 def mostrar_horas_extra(frame_padre, volver_menu, usuario_actual):
-    """Módulo de gestión de Horas Extra integrado al menú principal"""
+
     for widget in frame_padre.winfo_children():
         widget.destroy()
 
@@ -87,17 +87,17 @@ def mostrar_horas_extra(frame_padre, volver_menu, usuario_actual):
     frame_form = tk.LabelFrame(frame_padre, text="Nuevo Registro de Horas Extra", bg="#E0FFFF", padx=10, pady=10)
     frame_form.pack(fill="x", padx=20, pady=10)
 
-    # --- Orden ---
+
     tk.Label(frame_form, text="N° Orden:", bg="#E0FFFF").grid(row=0, column=0, sticky="e", padx=5, pady=5)
     orden_entry = tk.Entry(frame_form, width=40)
     orden_entry.grid(row=0, column=1, padx=5, pady=5)
 
-    # --- ID Nodo ---
+
     tk.Label(frame_form, text="ID Nodo:", bg="#E0FFFF").grid(row=1, column=0, sticky="e", padx=5, pady=5)
     idnodo_entry = tk.Entry(frame_form, width=40)
     idnodo_entry.grid(row=1, column=1, padx=5, pady=5)
 
-    # --- Hora inicio ---
+
     tk.Label(frame_form, text="Hora Inicio:", bg="#E0FFFF").grid(row=2, column=0, sticky="e", padx=5, pady=5)
     ophora = [f"{i:02}" for i in range(0, 24)]
     opmin = [f"{i:02}" for i in range(0, 60, 5)]
@@ -113,7 +113,7 @@ def mostrar_horas_extra(frame_padre, volver_menu, usuario_actual):
     min_inicio_cb.grid(row=0, column=2)
     tk.Label(frame_inicio, text="MIN", bg="#EAF4F4").grid(row=0, column=3)
 
-    # --- Hora fin ---
+
     tk.Label(frame_form, text="Hora Fin:", bg="#E0FFFF").grid(row=3, column=0, sticky="e", padx=5, pady=5)
     frame_fin = tk.Frame(frame_form, bg="#EAF4F4")
     frame_fin.grid(row=3, column=1, sticky="w")
@@ -126,20 +126,20 @@ def mostrar_horas_extra(frame_padre, volver_menu, usuario_actual):
     min_fin_cb.grid(row=0, column=2)
     tk.Label(frame_fin, text="MIN", bg="#EAF4F4").grid(row=0, column=3)
 
-    # --- Solución ---
+
     tk.Label(frame_form, text="Solución:", bg="#E0FFFF").grid(row=4, column=0, sticky="e", padx=5, pady=5)
     solucion_cb = ttk.Combobox(frame_form, values=fallas, width=37, state="readonly")
     solucion_cb.set(fallas[0])
     solucion_cb.grid(row=4, column=1, padx=5, pady=5)
 
-    # --- Técnico ---
+
     tk.Label(frame_form, text="Técnico que Acompaña:", bg="#E0FFFF").grid(row=5, column=0, sticky="e", padx=5, pady=5)
     tecnicos = obtener_tecnicos_desde_bd()
     tecnico_cb = ttk.Combobox(frame_form, values=tecnicos, state="readonly", width=37)
     tecnico_cb.set(tecnicos[0])
     tecnico_cb.grid(row=5, column=1, padx=5, pady=5)
 
-    # --- Tabla ---
+
     frame_tabla = tk.Frame(frame_padre, bg="#E0FFFF")
     frame_tabla.pack(fill="both", expand=True, padx=20, pady=10)
     tabla = ttk.Treeview(frame_tabla, columns=("id", "orden", "idnodo", "inicio", "fin", "solucion", "tecnico"),
@@ -154,7 +154,7 @@ def mostrar_horas_extra(frame_padre, volver_menu, usuario_actual):
     scrollbar.pack(side="right", fill="y")
     tabla.pack(fill="both", expand=True)
 
-    # --- Funciones internas ---
+
     def actualizar_tabla():
         tabla.delete(*tabla.get_children())
         for fila in HorasExtras.listar():
@@ -192,7 +192,7 @@ def mostrar_horas_extra(frame_padre, volver_menu, usuario_actual):
         HorasExtras.eliminar(id_registro)
         actualizar_tabla()
 
-    # --- Botones ---
+
     frame_botones = tk.Frame(frame_padre, bg="#E0FFFF")
     frame_botones.pack(pady=10)
     tk.Button(frame_botones, text="Guardar", command=guardar_registro, bg="#4CAF50",

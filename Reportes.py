@@ -59,19 +59,18 @@ class App:
         frame = tk.LabelFrame(root, text="Nuevo Reporte", padx=10, pady=10)
         frame.pack(fill="x", padx=10, pady=10)
 
-        # --- Fecha ---
         tk.Label(frame, text="Fecha:").grid(row=0, column=0, sticky="e", padx=5, pady=5)
         fechas = [(datetime.now() + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(5)]
         self.fecha_cb = ttk.Combobox(frame, values=fechas, state="readonly", width=37)
         self.fecha_cb.set(fechas[0])
         self.fecha_cb.grid(row=0, column=1, padx=5, pady=5)
 
-        # --- Campo de orden ---
+
         tk.Label(frame, text="Orden:").grid(row=1, column=0, sticky="e", padx=5, pady=5)
         self.orden_entry = tk.Entry(frame, width=40)
         self.orden_entry.grid(row=1, column=1, padx=5, pady=5)
 
-        # --- Hora inicio ---
+
         ttk.Label(frame, text="Hora Inicio:").grid(row=2, column=0, sticky="e", padx=5, pady=5)
         ophora = [f"{i:02}" for i in range(0, 24)]
         opmin = [f"{i:02}" for i in range(0, 60, 5)]
@@ -90,7 +89,7 @@ class App:
         self.min_inicio_cb.grid(row=0, column=2, padx=2)
         tk.Label(frame_hora_inicio, text="MIN", bg="#EAF4F4").grid(row=0, column=3)
 
-        # --- Hora fin ---
+
         ttk.Label(frame, text="Hora Fin:").grid(row=3, column=0, sticky="e", padx=5, pady=5)
         frame_hora_fin = tk.Frame(frame, bg="#EAF4F4")
         frame_hora_fin.grid(row=3, column=1, columnspan=2, sticky="w")
@@ -105,12 +104,12 @@ class App:
         self.min_fin_cb.grid(row=0, column=2, padx=2)
         tk.Label(frame_hora_fin, text="MIN", bg="#EAF4F4").grid(row=0, column=3)
 
-        # --- Solución ---
+
         tk.Label(frame, text="Solución:").grid(row=4, column=0, sticky="e", padx=5, pady=5)
         self.solucion_entry = ttk.Combobox(frame, values=fallas, state="readonly", width=37)
         self.solucion_entry.grid(row=4, column=1, padx=5, pady=5)
 
-        # --- Técnico que Acompaña (desde BD) ---
+
         tk.Label(frame, text="Técnico que Acompaña:").grid(row=5, column=0, sticky="e", padx=5, pady=5)
         tecnicos = self.obtener_tecnicos_desde_bd()
         if not tecnicos:
@@ -119,7 +118,7 @@ class App:
         self.tecnico_cb.set(tecnicos[0])
         self.tecnico_cb.grid(row=5, column=1, padx=5, pady=5)
 
-        # --- Botones ---
+
         tk.Button(
             frame,
             text="Guardar Reporte",
@@ -149,7 +148,7 @@ class App:
 
         self.tabla = None
 
-    # 🔹 Nueva función: obtener técnicos desde tu base Personal.db
+
     def obtener_tecnicos_desde_bd(self):
         try:
             conn = sqlite3.connect("Personal.db")
